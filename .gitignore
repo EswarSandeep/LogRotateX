@@ -5,6 +5,7 @@ state/
 venv/
 bin/
 build/
+dist/
 logrotatorx.spec
 
 

@@ -1,0 +1,25 @@
+[Unit]
+Description=LogRotatorX
+Documentation=https://github.com/Infralyx/LogRotatorX
+After=default.target
+
+[Service]
+Type=simple
+
+ExecStart=/APP/logrotatorx/bin/logrotatorx \
+    --config /APP/logrotatorx/config/config.yaml
+
+KillSignal=SIGTERM
+KillMode=control-group
+TimeoutStopSec=10
+
+Restart=on-failure
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

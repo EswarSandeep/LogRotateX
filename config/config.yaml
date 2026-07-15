@@ -1,0 +1,91 @@
+application:
+  name: LogRotator
+  version: 1.0.0
+
+paths:
+  log_file: /APP/logrotatorx/logs/logrotator.log
+  state_dir: /APP/logrotatorx/state
+
+
+# -----------------------------------------------------------------------------
+# Global Defaults
+# -----------------------------------------------------------------------------
+
+defaults:
+
+  # Rotate log when size exceeds this value (MB)
+  max_size_mb: 15
+
+  # Compress rotated logs
+  compress: true
+
+  # ZIP compression level (0-9)
+  zip_level: 9
+
+  # Move ZIPs from logs directory after N days
+  move_after_days: 1
+
+  # Delete archived ZIPs after N days
+  retention_days: 7
+
+  # Number of background compression workers
+  compression_workers: 4
+
+  # Log level for LogRotator
+  log_level: INFO
+
+
+# -----------------------------------------------------------------------------
+# Scheduler
+# -----------------------------------------------------------------------------
+
+scheduler:
+
+  rotate:
+    enabled: true
+    type: interval
+    seconds: 60  #minutes/seconds
+
+  archive:
+    enabled: true
+    type: cron
+    cron: "30 23 * * *"
+
+  cleanup:
+    enabled: true
+    type: cron
+    cron: "35 23 * * *"
+
+
+# -----------------------------------------------------------------------------
+# Services
+# -----------------------------------------------------------------------------
+
+services:
+
+  windows:
+
+    - name: tomcat-app1
+      enabled: true
+      logs:
+        - name: stdout
+          file: 'E:\TomcatInstances\tomcat-app1\logs\stdout.log'
+          destination_dir: 'E:\TomcatInstances\tomcat-app1\logs'
+          archive_dir: 'E:\Archives\tomcat-app1\out_logs'
+
+        - name: stderr
+          file: 'E:\TomcatInstances\tomcat-app1\logs\stderr.log'
+          destination_dir: 'E:\TomcatInstances\tomcat-app1\logs'
+          archive_dir: 'E:\Archives\tomcat-app1\err_logs'
+
+
+  linux:
+
+    - name: tomcat-1
+      enabled: true
+      logs:
+        - name: catalina
+          file: '/APP/tomcat/logs/catalina.out'
+          destination_dir: '/APP/tomcat/logs'
+          archive_dir: '/APP/archives/tomcat/catalina'
+
