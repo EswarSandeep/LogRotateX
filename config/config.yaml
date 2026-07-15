@@ -1,9 +1,9 @@
 application:
-  name: LogRotator
+  name: LogRotatorX
   version: 1.0.0
 
 paths:
-  log_file: /APP/logrotatorx/logs/logrotator.log
+  log_file: /APP/logrotatorx/logs/logrotatorx.log
   state_dir: /APP/logrotatorx/state
 
 
@@ -31,7 +31,7 @@ defaults:
   # Number of background compression workers
   compression_workers: 4
 
-  # Log level for LogRotator
+  # Log level for LogRotatorX
   log_level: INFO
 
 

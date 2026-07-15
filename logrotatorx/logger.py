@@ -21,7 +21,7 @@ from logrotatorx.constants import (
     DEFAULT_LOG_FORMAT,
 )
 
-logger = logging.getLogger("LogRotator")
+logger = logging.getLogger("LogRotatorX")
 
 
 # -----------------------------------------------------------------------------
@@ -118,7 +118,6 @@ def setup_logger(
     )
 
     return logger
-
 
 # -----------------------------------------------------------------------------
 # Logger Access

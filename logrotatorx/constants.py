@@ -20,9 +20,9 @@ DEFAULT_LOG_FORMAT = (
 # Default Runtime Names
 # -----------------------------------------------------------------------------
 
-DEFAULT_LOG_FILE_NAME = "logrotator.log"
+DEFAULT_LOG_FILE_NAME = "logrotatorx.log"
 
-DEFAULT_LOCK_FILE_NAME = "logrotator.lock"
+DEFAULT_LOCK_FILE_NAME = "logrotatorx.lock"
 
 # -----------------------------------------------------------------------------
 # Supported Values
