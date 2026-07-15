@@ -3,8 +3,8 @@ application:
   version: 1.0.0
 
 paths:
-  log_file: /APP/logrotatorx/logs/logrotatorx.log
-  state_dir: /APP/logrotatorx/state
+  log_file: /logrotatorx/logs/logrotatorx.log
+  state_dir: /logrotatorx/state
 
 
 # -----------------------------------------------------------------------------
@@ -69,23 +69,23 @@ services:
       enabled: true
       logs:
         - name: stdout
-          file: 'E:\TomcatInstances\tomcat-app1\logs\stdout.log'
-          destination_dir: 'E:\TomcatInstances\tomcat-app1\logs'
+          file: 'E:\Instances\tomcat-app1\logs\stdout.log'
+          destination_dir: 'E:\Instances\tomcat-app1\logs'
           archive_dir: 'E:\Archives\tomcat-app1\out_logs'
 
         - name: stderr
-          file: 'E:\TomcatInstances\tomcat-app1\logs\stderr.log'
-          destination_dir: 'E:\TomcatInstances\tomcat-app1\logs'
-          archive_dir: 'E:\Archives\tomcat-app1\err_logs'
+          file: 'E:\Instances\tomcat-app1\logs\stderr.log'
+          destination_dir: 'E:\Instances\tomcat-app1\logs'
+          archive_dir: 'E:\Archives\tomcat-app1\error_logs'
 
 
   linux:
 
-    - name: tomcat-1
+    - name: tomcat-app1
       enabled: true
       logs:
         - name: catalina
-          file: '/APP/tomcat/logs/catalina.out'
-          destination_dir: '/APP/tomcat/logs'
-          archive_dir: '/APP/archives/tomcat/catalina'
+          file: '/tomcat/logs/catalina.out'
+          destination_dir: '/tomcat/logs'
+          archive_dir: '/archives/tomcat/catalina'
 

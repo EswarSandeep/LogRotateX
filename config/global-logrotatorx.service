@@ -9,8 +9,8 @@ Type=simple
 User=root
 Group=root
 
-ExecStart=/APP/logrotatorx/bin/logrotatorx \
-    --config /APP/logrotatorx/config/config.yaml
+ExecStart=/logrotatorx/bin/logrotatorx \
+    --config /logrotatorx/config/config.yaml
 
 KillSignal=SIGTERM
 KillMode=control-group
