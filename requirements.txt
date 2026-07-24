@@ -1,0 +1,18 @@
+APScheduler==3.11.0
+portalocker==3.2.0
+PyYAML==6.0.3
+
+
+
+"""
+#Below modules will be imported from python libraries
+
+logging
+pathlib
+threading
+zipfile
+shutil
+datetime
+signal
+concurrent.future
+"""

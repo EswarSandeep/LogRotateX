@@ -1,0 +1,11 @@
+__pycache__/
+logrotator/__pycache__/
+logs/
+state/
+venv/
+bin/
+build/
+dist/
+logrotatorx.spec
+
+

@@ -1,0 +1,200 @@
+application:
+  name: LogRotatorX
+  version: 1.0.0
+
+paths:
+  log_file: /logrotatorx/logs/logrotatorx.log
+  state_dir: /logrotatorx/state
+
+
+# -----------------------------------------------------------------------------
+# Global Defaults
+# -----------------------------------------------------------------------------
+
+defaults:
+
+  # ---------------------------------------------------------------------------
+  # Rotation Policy
+  # ---------------------------------------------------------------------------
+
+  rotation:
+
+    # Supported:
+    #
+    #   size
+    #   hourly
+    #   half_daily
+    #   daily
+    #   cron
+    #
+    type: size
+
+    # Used only when type=size
+    max_size_mb: 15
+
+    # Used only when type=cron
+    #
+    # Examples:
+    #
+    # Every hour
+    # cron: "0 * * * *"
+    #
+    # Every 6 hours
+    # cron: "0 */6 * * *"
+    #
+    # Every day at 11:30 PM
+    # cron: "30 23 * * *"
+    #
+    # Every Sunday
+    # cron: "0 0 * * 0"
+    #
+    # cron:
+
+  # Compress rotated logs
+  compress: true
+
+  # ZIP compression level (0-9)
+  zip_level: 9
+
+  # Move ZIPs from logs directory after N days
+  move_after_days: 1
+
+  # Delete archived ZIPs after N days
+  retention_days: 7
+
+  # Number of background compression workers
+  compression_workers: 4
+
+  # Log level for LogRotatorX
+  log_level: INFO   #INFO, DEBUG, WARNING, ERROR, CRITICAL
+
+
+# -----------------------------------------------------------------------------
+# Scheduler
+# -----------------------------------------------------------------------------
+
+scheduler:
+
+  rotate:
+    enabled: true
+    type: interval
+    seconds: 60
+
+  archive:
+    enabled: true
+    type: cron
+    cron: "30 23 * * *"
+
+  cleanup:
+    enabled: true
+    type: cron
+    cron: "35 23 * * *"
+
+
+# -----------------------------------------------------------------------------
+# Services
+# -----------------------------------------------------------------------------
+
+services:
+
+  windows:
+
+    - name: tomcat-app1
+      enabled: true
+
+      logs:
+
+        - name: stdout
+          file: 'E:\Instances\tomcat-app1\logs\stdout.log'
+          destination_dir: 'E:\Instances\tomcat-app1\logs'
+          archive_dir: 'E:\Archives\tomcat-app1\out_logs'
+
+        - name: stderr
+          file: 'E:\Instances\tomcat-app1\logs\stderr.log'
+          destination_dir: 'E:\Instances\tomcat-app1\logs'
+          archive_dir: 'E:\Archives\tomcat-app1\error_logs'
+
+          # Optional per-log override
+          #
+          # rotation:
+          #   type: hourly
+
+  linux:
+
+    - name: tomcat-app1
+      enabled: true
+
+      logs:
+
+        - name: catalina
+          file: '/tomcat/logs/catalina.out'
+          destination_dir: '/tomcat/logs'
+          archive_dir: '/archives/tomcat/catalina'
+
+          # Optional per-log override
+          #
+          # rotation:
+          #   type: daily
+          #
+          # or
+          #
+          # rotation:
+          #   type: hourly
+          #
+          # or
+          #
+          # rotation:
+          #   type: half_daily
+          #
+          # or
+          #
+          # rotation:
+          #   type: cron
+          #   cron: "0 */6 * * *"
+          #
+          # or
+          #
+          # rotation:
+          #   type: size
+          #   max_size_mb: 100
+
+    - name: Nginx
+      enabled: true
+
+      logs:
+
+        - name: nginx_logs
+          file: '/nginx/logs/*.log'
+          destination_dir: '/nginx/logs'
+          archive_dir: '/archives/nginx/logs'
+
+          exclude:
+            - "*backup"
+            - "*old"
+
+          # Optional per-log override
+          #
+          # rotation:
+          #   type: cron
+          #   cron: "0 * * * *"
+          #
+          # or
+          #
+          # rotation:
+          #   type: hourly
+          #
+          # or
+          #
+          # rotation:
+          #   type: half_daily
+          #
+          # or
+          #
+          # rotation:
+          #   type: daily
+          #
+          # or
+          #
+          # rotation:
+          #   type: size
+          #   max_size_mb: 100
